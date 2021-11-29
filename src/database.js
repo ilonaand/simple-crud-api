@@ -1,4 +1,4 @@
-const { v4:uuid} = require("uuid");
+const { v4:uuid } = require("uuid");
 module.exports = class Database {
   constructor () {
     this.persons = [];
@@ -32,5 +32,11 @@ module.exports = class Database {
     if ( i < 0 ) return undefined;
     this.persons[i] = {...this.persons[i], name: name, age: age, hobbies: hobbies };
     return  this.persons[i];
+  }
+
+  delete (personId) {
+    const i = this.persons.findIndex((item) => item.id === personId); 
+    if ( i < 0 ) return undefined;
+    return this.persons.splice(i, 1); 
   }
 }
