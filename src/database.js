@@ -35,8 +35,6 @@ module.exports = class Database {
   }
 
   delete (personId) {
-    const i = this.persons.findIndex((item) => item.id === personId); 
-    if ( i < 0 ) return undefined;
-    return this.persons.splice(i, 1); 
+    this.persons = this.persons.filter((item) => item.id != personId); 
   }
 }
