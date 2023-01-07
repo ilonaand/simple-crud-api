@@ -23,11 +23,16 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "ES6",
+    "module": "ESNext",
     "moduleResolution": "Node",
     "target": "ES6",
+   // "lib": [ "es2017", "dom" ],
     "isolatedModules": false,
     "outDir": "./dist",
   },
-  "exclude": ["node_modules", "**/__tests__/*", "config", "dist"]
+  "exclude": ["node_modules", "**/__tests__/*", "config", "dist"],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+  }
 }
