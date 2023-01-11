@@ -1,11 +1,18 @@
 import { IncomingMessage, ServerResponse} from 'http';
-import { IHandle, IRoutesMap, Match } from './types';
+import { IRoutesMap, Match } from './types';
+import { exception } from './exeptions';
 
 const routes: IRoutesMap = {
-  "/api/users" : (req: IncomingMessage , res: ServerResponse): string | undefined => req.method, 
-  "/api/users/:id": (req: IncomingMessage , res: ServerResponse, params?: string[] ): string | undefined => {
-    return params? params[0] : req.url} ,
-};
+  "/api/users" : (req: IncomingMessage , res: ServerResponse): void =>  {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(req.method));
+  }
+, 
+  "/api/users/:id": (req: IncomingMessage , res: ServerResponse, params?: string[] ): void => {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(params? params[0] : req.url));
+  }
+}
 
 const createMatch = (routes: IRoutesMap): Match => {
   const match: Match = [];
@@ -24,7 +31,7 @@ export const match = createMatch(routes);
 
 export const router = (req: IncomingMessage , res: ServerResponse, match: Match) => {
   const { url } = req;
-  if (!url) return;
+  if (!url) return  exception(req, res, 404, "record not found");
   let route = routes[url];
   let params: string[] = [];
   
@@ -40,7 +47,7 @@ export const router = (req: IncomingMessage , res: ServerResponse, match: Match)
     }
   }
 
-  if (!route) return '404';
+  if (!route) return  exception(req, res, 404, "record not found");
   return route(req, res, params)
 }
 

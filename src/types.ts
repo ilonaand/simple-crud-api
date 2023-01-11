@@ -12,6 +12,6 @@ export  interface IUser  extends IUserInfo {
 
 export interface IRoutesMap { [paramName: string]: IHandle };
 
-export interface IHandle { (req: IncomingMessage , res: ServerResponse, params?: (string[] | undefined)): string | undefined} ;
+export interface IHandle { (req: IncomingMessage , res: ServerResponse, params?: (string[] | undefined)): void} ;
 
 export type Match = Array<[RegExp, IHandle]>;
