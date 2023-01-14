@@ -1,17 +1,16 @@
 import { IncomingMessage, ServerResponse} from 'http';
+
 import { IRoutesMap, Match } from './types';
+
 import { exception } from './exeptions';
 
+import { handlerWithoutParams,  handlerWithParams} from './controllres';
+
 const routes: IRoutesMap = {
-  "/api/users" : (req: IncomingMessage , res: ServerResponse): void =>  {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(req.method));
-  }
-, 
-  "/api/users/:id": (req: IncomingMessage , res: ServerResponse, params?: string[] ): void => {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(params? params[0] : req.url));
-  }
+  "/api/users" : (req: IncomingMessage , res: ServerResponse ): Promise<void> => 
+    handlerWithoutParams(req, res),
+  "/api/users/:id": (req: IncomingMessage , res: ServerResponse, params?: string[] | undefined ): Promise<void> => 
+    handlerWithParams(req, res, params)
 }
 
 const createMatch = (routes: IRoutesMap): Match => {
@@ -31,7 +30,7 @@ export const match = createMatch(routes);
 
 export const router = (req: IncomingMessage , res: ServerResponse, match: Match) => {
   const { url } = req;
-  if (!url) return  exception(req, res, 404, "record not found");
+  if (!url) return  exception(req, res, 404, "Not found");
   let route = routes[url];
   let params: string[] = [];
   
