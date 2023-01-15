@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
+    "sourceMap": false,
     "pretty": true,
     "removeComments": true,
     "checkJs": false,
@@ -25,9 +25,9 @@
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "Node",
-    "target": "ES2022",
+    "target": "ES2015",
     "isolatedModules": false,
-    "outDir": "./dist",
+    "outDir": "./dist/src",
   },
   "exclude": ["node_modules", "**/__tests__/*", "config", "dist"],
   "ts-node": {

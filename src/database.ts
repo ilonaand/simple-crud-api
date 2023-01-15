@@ -1,4 +1,4 @@
-import { IUser, IUserInfo } from "./types";
+import { IUser, IUserInfo } from "./types.js";
 
 import { v4 as  uuid } from 'uuid';
 

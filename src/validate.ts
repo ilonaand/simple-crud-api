@@ -1,4 +1,4 @@
-import {  IUserInfo } from "./types";
+import {  IUserInfo } from "./types.js";
 
 export const validateUserInfo = (user: { [key: string]: any }) : user is IUserInfo => {
   const length = Object.keys(user).length === 3;

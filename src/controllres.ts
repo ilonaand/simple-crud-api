@@ -1,14 +1,14 @@
 import { IncomingMessage, ServerResponse } from 'http';
 
-import { IHandle, IUser } from './types';
+import { IHandle, IUser } from './types.js';
 
-import { exception } from './exeptions';
+import { exception } from './exeptions.js';
 
-import {  validateUserInfo } from './validate';
+import {  validateUserInfo } from './validate.js';
 
 import { validate } from 'uuid';
 
-import { findAll, findOne, addOne, updateOne, deleteOne} from './database';
+import { findAll, findOne, addOne, updateOne, deleteOne} from './database.js';
 
 export const handlerWithoutParams: IHandle = async (req: IncomingMessage , res: ServerResponse) => {
   if ( req.method !== 'GET' && req.method !== 'POST')  
