@@ -1,10 +1,10 @@
 import { IncomingMessage, ServerResponse} from 'http';
 
-import { IRoutesMap, Match } from './types.js';
+import { IRoutesMap, Match } from './types';
 
-import { exception } from './exeptions.js';
+import { exception } from './exeptions';
 
-import { handlerWithoutParams,  handlerWithParams} from './controllres.js';
+import { handlerWithoutParams,  handlerWithParams} from './controllres';
 
 const routes: IRoutesMap = {
   "/api/users" : (req: IncomingMessage , res: ServerResponse ): Promise<void> => 

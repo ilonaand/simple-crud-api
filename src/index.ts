@@ -2,12 +2,12 @@ import  dotenv from 'dotenv';
 
 import  http from 'node:http';
 
-import { router, match } from './routers.js';
+import { router, match } from './routers';
 
 dotenv.config();
 const PORT = process.env.PORT ?? 8000;
 
-const httpServer = http.createServer((req, res) => {
+export const httpServer = http.createServer((req, res) => {
   router(req, res, match);
 })
 httpServer.listen(PORT, () => console.log(`>>> HTTP server is running at http://localhost:${PORT}`));
