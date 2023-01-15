@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 
 import  http from 'node:http';
 
-import { router, match } from './src/routers';
+import { router, match } from './routers';
 
 dotenv.config();
 const PORT = process.env.PORT ?? 8000;
