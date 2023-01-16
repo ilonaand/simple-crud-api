@@ -12,16 +12,18 @@ export const httpServer = http.createServer((req, res) => {
 })
 httpServer.listen(PORT, () => console.log(`>>> HTTP server is running at http://localhost:${PORT}`));
 
+process.on('SIGINT', () => {
+  httpServer.close(() => process.exit());
+});;
+
 process.on('exit', (code) => {
   if (code === 0) {
    process.kill(process.pid)
   }
  })
 
-process.on('SIGINT', () => {
-  console.log('Ctrl-C...');
-  console.log('Finished all requests');
-  process.exit(2);
-});
+process.on('SIGTERM', () => { 
+  httpServer.close(() => process.exit());}
+); 
 
-process.on('SIGTERM', () => { process.exit(2)}); 
+

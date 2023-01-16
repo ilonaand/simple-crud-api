@@ -27,7 +27,7 @@
     "moduleResolution": "Node",
     "target": "ES2015",
     "isolatedModules": false,
-    "outDir": "./dist/src",
+    "outDir": "./dist",
   },
   "exclude": ["node_modules", "**/__tests__/*", "config", "dist"],
   "ts-node": {
