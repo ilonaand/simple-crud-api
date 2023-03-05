@@ -17,3 +17,9 @@
 ## Enable API 
 - `api/users` for GET all users and POST user
 - `api/user/${userId}` for GET, PUT, DELETE user
+
+## Frontend
+
+### [Stream recording on YouTube](https://www.youtube.com/watch?v=WWhrGxP-YO0&list=PLpyca7mQnpmKID0wkOP2OQT1TM6i7nshX&index=8)
+
+![image](https://user-images.githubusercontent.com/19654456/222982217-be612e80-9fec-4831-8320-2f9f5273c75e.png)
