@@ -36,8 +36,45 @@ input {
   text-align: center;
 }
 
-#new-add-user-form {
-  
+#add-user-form {
+  display: grid;
+  width: min-content;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 20px;
+}
+
+#add-user-form button {
+  grid-row: span 2;
+}
+
+#add-user-form label {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#add-user-form label:last-child {
+  grid-column: span 2;
+  display: inline-flex;
+}
+
+#add-user-form label ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#add-user-form label .chip {
+  white-space: nowrap;
+  background-color: #777;
+  color: white;
+  padding-left: 10px;
+}
+
+#add-user-form label .chip>button {
+  padding: 10px;
 }
 
 #users {
@@ -48,6 +85,10 @@ input {
 #user-table {
   margin-top: 50px;
   width: 100%;
+}
+
+#user-table:has(>:empty) {
+  display: none;
 }
 
 #user-table :is(td, th) {
