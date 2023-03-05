@@ -1,6 +1,9 @@
+header, section {
+  padding: 0 calc(50vw - 500px);
+}
+
 header {
   height: 100px;
-  padding: 0 calc(50vw - 500px);
   background-color: #eee;
 }
 
@@ -8,4 +11,92 @@ h1 {
   font-size: 2.5em;
   line-height: 100px;
   text-align: center;
+}
+
+#new-user {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#add-user-form button {
+  background-color: #777;
+  color: white;
+  padding: 10px 30px;
+}
+
+input {
+  padding: 0.5em;
+  border-bottom: 1px solid #000;
+  margin-right: 30px;
+  text-align: center;
+}
+
+#users {
+  background-color: #eee;
+  padding: 50px 0;
+}
+
+#user-table {
+  margin-top: 50px;
+  width: 100%;
+}
+
+#user-table :is(td, th) {
+  padding: 0.5em;
+  text-align: center;
+}
+
+#user-table th {
+  cursor: pointer;
+  position: relative;
+  transition: background-color 500ms;
+}
+
+#user-table th:not(:last-child):hover {
+  background-color: #fff;
+}
+
+/* #user-table th:hover:is(::before, ::after) { */
+#user-table th:not(:last-child)::before,
+#user-table th:not(:last-child)::after {
+  content: "↓";
+  width: max-content;
+  position: absolute;
+  right: 20%;
+  bottom: 5px;
+  transition: opacity 500ms;
+}
+
+#user-table th::before {
+  left: 20%;
+}
+
+#user-table th:not(:hover)::before,
+#user-table th:not(:hover)::after {
+  opacity: 0;
+}
+
+#user-table :nth-child(odd) td {
+  background-color: #ddd;
+}
+
+#user-table td {
+  transition: background-color 500ms;
+}
+
+#user-table :hover>td {
+  background-color: #fff
+}
+
+#user-table button {
+  background-color: #777;
+  color: white;
+  padding: 10px 30px;
+  transition: opacity 500ms;
+}
+
+#user-table tr:not(:hover) button {
+  opacity: 0.2;
 }

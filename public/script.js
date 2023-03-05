@@ -1,9 +1,28 @@
+const title = document.getElementById('title')
 const addUserForm = document.getElementById('add-user-form')
-const userList = document.getElementById('user-list')
+const userTable = document.getElementById('user-table')
 
-getUsers().then(showUsers)
+if (location.host != '127.0.0.1:5500') main()
+else document.title = title.innerText = 'live ' + document.title
 
-addUserForm.onsubmit = () => addUser(getFormData(addUserForm))
+function main() {
+  userTable.tBodies[0].innerHTML = ''
+
+  getUsers().then(showUsers)
+  
+  addUserForm.onsubmit = () => addUser(getFormData(addUserForm))
+
+  userTable.onclick = ({target}) => {
+    if (target.classList.contains('del-btn')) {
+      const id = target.closest('tr').dataset.id
+      deleteUser(id).then(getUsers).then(showUsers)
+    }
+  }
+}
+
+function deleteUser(id) {
+  return fetch(`/api/users/${id}`, {method: 'DELETE'})
+}
 
 function addUser(user) {
   return fetch('/api/users', {
@@ -32,7 +51,14 @@ function getUsers() {
 }
 
 function showUsers(users) {
-  userList.innerHTML = users.map(user => `
-    <li>${user.username}</li>
+  userTable.tBodies[0].innerHTML = users.map(user => `
+    <tr data-id="${user.id}">
+      <td>${user.username}</td>
+      <td>${user.age}</td>
+      <td>${user.hobbies.join(', ')}</td>
+      <td>
+        <button class="del-btn">Delete</button>
+      </td>
+    </tr>
   `).join('')
 }
