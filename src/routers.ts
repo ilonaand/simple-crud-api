@@ -6,6 +6,8 @@ import { exception } from './exeptions';
 
 import { handlerWithoutParams,  handlerWithParams} from './controllres';
 
+import { serveFile } from './serveFile';
+
 const routes: IRoutesMap = {
   "/api/users" : (req: IncomingMessage , res: ServerResponse ): Promise<void> => 
     handlerWithoutParams(req, res),
@@ -15,6 +17,7 @@ const routes: IRoutesMap = {
 
 const createMatch = (routes: IRoutesMap): Match => {
   const match: Match = [];
+
   for (const key in routes) {
     if (key.includes(':id')) {
       const expKey = new RegExp(key.replace(':id', '(.*)')); 
@@ -23,20 +26,24 @@ const createMatch = (routes: IRoutesMap): Match => {
       delete routes[key];
     }
   }
+
   return  match;
 }
 
 export const match = createMatch(routes);
 
 export const router = (req: IncomingMessage , res: ServerResponse, match: Match) => {
-  const { url } = req;
+  const { url, method } = req;
+
   if (!url) return  exception(req, res, 404, "Not found");
+
   let route = routes[url];
   let params: string[] = [];
   
   if (!route) {
     for (const rx of match) {
       const p = url.match(rx[0]);
+      
       if (p) {
         params = p;
         params.shift();
@@ -46,7 +53,15 @@ export const router = (req: IncomingMessage , res: ServerResponse, match: Match)
     }
   }
 
-  if (!route) return  exception(req, res, 404, "record not found");
+  if (!route) {
+    if (method === 'GET' && !url.startsWith('/api/')) {
+      return serveFile(req, res).catch(() => {
+        exception(req, res, 500, 'File not found: ' + url);
+      });
+    }
+
+    return  exception(req, res, 404, "record not found");
+  }
+
   return route(req, res, params)
 }
-
